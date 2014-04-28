@@ -1,0 +1,163 @@
+#include <iostream>
+using namespace std;
+
+enum PhoneType {HOME, OFFICE, FAX, CELL, PAGER};
+
+class Phone
+    {
+        public:
+        // Constructors
+        Phone();
+        // Sets all numbers to 0 and type to HOME
+        Phone(int coCode, int arCode, int phNumber, PhoneType phType);
+        //Sets values to each variable
+        Phone(int phNumber, PhoneType phType);
+        //Sets the country and area codes to the location (only US and Detroit/Oakland County in this program)
+        //Observers
+        int GetcoCode() const;
+        int GetarCode() const;
+        int GetphNumber() const;
+        PhoneType GetphType() const;
+        // These functions allow to retrieve each value separately
+        bool Equal(Phone otherPhone) const;
+        //This function compares two numbers and checks if they are equal
+        void Write() const;
+        // This function writes the number in the output
+        //Transformers
+        void SetcoCode(int NewcoCode);
+        void SetarCode(int NewarCode);
+        void SetphNumber(int NewphNumber);
+        void SetphType(PhoneType NewphType);
+        // These functions change the values seperately
+        private:
+        int countryCode;
+        int areaCode;
+        int phoneNumber;
+        PhoneType phonetype;
+    };
+
+    Phone::Phone()
+    {
+        countryCode = 0;
+        areaCode = 0;
+        phoneNumber = 0;
+        phonetype = HOME;
+    }
+
+    Phone::Phone(int coCode, int arCode, int phNumber, PhoneType phType)
+    {
+        countryCode = coCode;
+        areaCode = arCode;
+        phoneNumber = phNumber;
+        phonetype = phType;
+    }
+
+    Phone::Phone(int phNumber, PhoneType phType)
+    {
+        countryCode = 1;
+        areaCode = 248;
+        phoneNumber = phNumber;
+        phonetype = phType;
+    }
+
+    int Phone::GetcoCode() const
+    {
+        return countryCode;
+    }
+
+    int Phone::GetarCode() const
+    {
+        return areaCode;
+    }
+
+    int Phone::GetphNumber() const
+    {
+        return phoneNumber;
+    }
+
+    PhoneType Phone::GetphType() const
+    {
+        return phonetype;
+    }
+
+    bool Phone::Equal(Phone otherPhone) const
+    {
+        if (countryCode == otherPhone.countryCode)
+        if (areaCode == otherPhone.areaCode)
+        if (phoneNumber == otherPhone.phoneNumber)
+        return true;
+        return false;
+    }
+
+    void Phone::Write() const
+    {
+        switch(phonetype)
+        {
+            case HOME: cout << "Home";
+            break;
+            case OFFICE : cout << "Office";
+            break;
+            case FAX: cout << "Fax";
+            break;
+            case CELL: cout << "Cellphone";
+            break;
+            case PAGER: cout << "Pager";
+            break;
+        }
+
+        cout << " Number: +" << countryCode << " " << areaCode << " " << phoneNumber << endl;
+    }
+
+    void Phone::SetcoCode(int NewcoCode)
+    {
+        countryCode = NewcoCode;
+    }
+
+    void Phone::SetarCode(int NewarCode)
+    {
+        areaCode = NewarCode;
+    }
+
+    void Phone::SetphNumber(int NewphNumber)
+    {
+        phoneNumber = NewphNumber;
+    }
+
+    void Phone::SetphType(PhoneType NewphType)
+    {
+        phonetype = NewphType;
+    }
+
+    int main()
+    {
+        Phone phone1(1, 248, 1234567, CELL);
+        Phone phone2(1234567, HOME);
+
+        cout << phone1.GetcoCode() << " " << phone1.GetarCode() << " " << phone1.GetphNumber() << endl;
+        cout << phone2.GetcoCode() << " " << phone2.GetarCode() << " " << phone2.GetphNumber() << endl;
+
+        if (phone1.Equal(phone2))
+        cout << "The phone numbers match";
+        else
+        cout << "The phone numbers do not match";
+
+        cout << endl;
+
+        phone2.SetcoCode(2);
+        phone2.SetarCode(313);
+        phone2.SetphNumber(7654321);
+        phone2.SetphType(PAGER);
+
+        phone1.Write();
+        phone2.Write();
+
+        if (phone1.Equal(phone2))
+        cout << "The phone numbers match";
+        else
+        cout << "The phone numbers do not match";
+
+        cout << endl;
+
+        system("pause");
+        return 0;
+    }
